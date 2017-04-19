@@ -1,1 +1,16 @@
-Hello world!
+<div *ngIf="field">
+    <a href="#" (click)="removeField()">CHange field</a>
+    <map>Loading ...</map>
+</div>
+<div *ngIf="!field">
+    <ul>
+        <li><a (click)="getField(1)">Item 1</a></li>
+        <li><a (click)="getField(2)">Item 2</a></li>
+        <li><a (click)="getField(3)">Item 3</a></li>
+        <li><a (click)="getField(4)">Item 4</a></li>
+        <li><a (click)="getField(5)">Item 5</a></li>
+        <li><a (click)="getField(6)">Item 6</a></li>
+        <li><a (click)="getField(7)">Item 7</a></li>
+        <li><a (click)="getField(8)">Item 8</a></li>
+    </ul>
+</div>

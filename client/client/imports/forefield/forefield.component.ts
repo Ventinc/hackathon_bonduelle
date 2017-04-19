@@ -8,4 +8,20 @@ import template from './forefield.component.html';
     selector: 'fore-field',
     template
 })
-export class ForefieldComponent {}
+export class ForefieldComponent {
+    private field: boolean = false;
+
+    constructor() {
+        this.field = false;
+    }
+
+    getField(id: number)
+    {
+        this.field = true;
+    }
+
+    removeField()
+    {
+        this.field = false;
+    }
+}
