@@ -1,0 +1,5 @@
+<h1>{{field.name}}</h1>
+<sebm-google-map [latitude]="field.lat" [longitude]="field.lng" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
+    Loading...
+    <sebm-google-map-marker *ngFor="let m of markers" [latitude]="m.lat" [longitude]="m.lng" [title]="toto" (markerClick)="markerClick(m)"></sebm-google-map-marker>
+</sebm-google-map>
