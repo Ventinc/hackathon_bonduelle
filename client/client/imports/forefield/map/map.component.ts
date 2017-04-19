@@ -1,7 +1,7 @@
 /**
  * Created by ventinc on 19/04/17.
  */
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import template from './map.component.html';
 
 interface Field
@@ -12,7 +12,7 @@ interface Field
     id: number
 }
 
-interface Marker
+interface Spot
 {
     lng: number,
     lat: number,
@@ -23,22 +23,27 @@ interface Marker
     selector: 'map',
     styles: [`
         .sebm-google-map-container {
-            height: 300px;
+            height: 400px;
+            width: 700px;
         }
     `],
     template
 })
 export class MapComponent implements OnInit {
-    @Input() private field: Field;
-    @Input() private spots: Marker[];
+
     private dataReady = false;
+
+    @Input() private field: Field;
+    @Input() private spots: Spot[];
+    @Output() spotSelect: EventEmitter<Spot> = new EventEmitter<Spot>();
 
     constructor() {
     }
 
-    markerClick(mark: Marker)
+    markerClick(mark: Spot)
     {
         console.log(mark);
+        this.spotSelect.emit(mark);
     }
 
     ngOnInit()

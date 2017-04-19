@@ -12,7 +12,7 @@ interface Field
     id: number
 }
 
-interface Marker
+interface Spot
 {
     lng: number,
     lat: number,
@@ -23,7 +23,7 @@ class Handler {
 
     private showList: boolean = false;
     private currentField: number = -1;
-    private currentPlot: number = -1;
+    private currentSpot: number = -1;
 
     setShowState(state: boolean)
     {
@@ -37,14 +37,19 @@ class Handler {
         console.log("Set current field to : " + id);
     }
 
-    setCurrentPlot(id: number)
+    setCurrentSpot(id: number)
     {
-        this.currentPlot = id;
+        this.currentSpot = id;
     }
 
-    isMapActive()
+    getCurrentField()
     {
-        return this.showList;
+        return this.currentField;
+    }
+
+    getCurrentSpot()
+    {
+        return this.currentSpot;
     }
 }
 
@@ -56,7 +61,7 @@ export class ForefieldComponent {
 
     private handler = new Handler();
     private fields: Field[] = [];
-    private spots: Marker[] = [];
+    private spots: Spot[] = [];
 
     constructor() {
         this.fields.push(
@@ -71,9 +76,14 @@ export class ForefieldComponent {
     updateField(id: number)
     {
         this.handler.setCurrentField(id);
-        if (this.handler.isMapActive()) {
-            this.getSpots(id);
-        }
+        this.getSpots(id);
+    }
+
+    resetField()
+    {
+        this.handler.setCurrentField(-1);
+        this.handler.setCurrentSpot(-1);
+        this.spots = [];
     }
 
     getSpots(id: number)
@@ -90,5 +100,12 @@ export class ForefieldComponent {
         console.log("Markers in parent : " + this.spots);
     }
 
-    // Call on API on NgInit for field list
+    getSpotData(event)
+    {
+        console.log("=== Api Call for Spot eventHandler ===");
+        this.handler.setCurrentSpot(event.id);
+        console.log("Should ask for Spot n°" + this.handler.getCurrentSpot() + " of field n°" + this.handler.getCurrentField())
+    }
+
+    // Call on API on NgInit for field list + dataReady Wrapper ?
 }
