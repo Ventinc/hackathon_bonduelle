@@ -1,7 +1,7 @@
 /**
  * Created by ventinc on 19/04/17.
  */
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import template from './map.component.html';
 
 interface Field
@@ -28,22 +28,12 @@ interface Marker
     `],
     template
 })
-export class MapComponent {
-    private markers: Marker[] = [];
-    @Input() private field: Field = {
-        lat: 10,
-        lng: 20,
-        id: 234,
-        name: "Champs de fleurs"
-    };
+export class MapComponent implements OnInit {
+    @Input() private field: Field;
+    @Input() private spots: Marker[];
+    private dataReady = false;
 
     constructor() {
-        this.markers.push(
-            {lat: 10, lng: 20, id: 10},
-            {lat: 10, lng: 20.002, id: 9},
-            {lat: 10, lng: 20.004, id: 8},
-            {lat: 10, lng: 20.006, id: 7},
-        );
     }
 
     markerClick(mark: Marker)
@@ -51,4 +41,9 @@ export class MapComponent {
         console.log(mark);
     }
 
+    ngOnInit()
+    {
+        console.log("Spots in child : " + this.spots);
+        this.dataReady = true;
+    }
 }

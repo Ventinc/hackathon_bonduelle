@@ -1,16 +1,9 @@
-<div *ngIf="field">
-    <a href="#" (click)="removeField()">CHange field</a>
-    <map>Loading ...</map>
+<div *ngIf="handler.showList">
+    <a href="#" (click)="updateField(-1)">Back to List</a>
+    <map [field]="fields[handler.currentField]" [spots]="spots">Loading ...</map>
 </div>
-<div *ngIf="!field">
+<div *ngIf="!handler.showList">
     <ul>
-        <li><a (click)="getField(1)">Item 1</a></li>
-        <li><a (click)="getField(2)">Item 2</a></li>
-        <li><a (click)="getField(3)">Item 3</a></li>
-        <li><a (click)="getField(4)">Item 4</a></li>
-        <li><a (click)="getField(5)">Item 5</a></li>
-        <li><a (click)="getField(6)">Item 6</a></li>
-        <li><a (click)="getField(7)">Item 7</a></li>
-        <li><a (click)="getField(8)">Item 8</a></li>
+        <li *ngFor="let f of fields" (click)="updateField(f.id)">{{f.name}}</li>
     </ul>
 </div>
