@@ -1,8 +1,12 @@
 <div *ngIf="handler.showList">
-    <a href="#" (click)="resetField()">Back to List</a>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large brown darken-2" (click)="resetField()">
+            <i class="large material-icons">chevron_left</i>
+        </a>
+    </div>
     <div style="display: flex; flex-direction: row">
         <div>
-            <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)">Loading ...</map>
+            <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
         </div>
         <div>
             <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
@@ -10,8 +14,18 @@
     </div>
 
 </div>
-<div *ngIf="!handler.showList">
-    <ul>
-        <li *ngFor="let f of fields" (click)="updateField(f.id)">{{f.name}}</li>
-    </ul>
+<div class="row" *ngIf="!handler.showList">
+    <div class="col s12 m6 l4" *ngFor="let f of fields; let i of index">
+        <div class="card green lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">
+                    <i class="material-icons">room</i>
+                    {{f.name}}
+                </span>
+            </div>
+            <div class="card-action green">
+                <a (click)="updateField(f.id)" href="#" class="brown-text">Examiner ce champ</a>
+            </div>
+        </div>
+    </div>
 </div>
