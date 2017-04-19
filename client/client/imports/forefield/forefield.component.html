@@ -1,6 +1,14 @@
 <div *ngIf="handler.showList">
-    <a href="#" (click)="updateField(-1)">Back to List</a>
-    <map [field]="fields[handler.currentField]" [spots]="spots">Loading ...</map>
+    <a href="#" (click)="resetField()">Back to List</a>
+    <div style="display: flex; flex-direction: row">
+        <div>
+            <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)">Loading ...</map>
+        </div>
+        <div>
+            <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
+        </div>
+    </div>
+
 </div>
 <div *ngIf="!handler.showList">
     <ul>
