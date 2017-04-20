@@ -87,7 +87,7 @@ export class ForefieldComponent {
 
     updateField(id: number)
     {
-        this.handler.setCurrentField(id);
+        this.handler.setCurrentField(id - 1);
         this.getSpots(id);
     }
 
@@ -102,7 +102,24 @@ export class ForefieldComponent {
     {
         // Use id of field to request list of spots in API
 
-        console.log("Pushing spots for field nb : " + id);
+        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + id);
+        try {
+            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + id, {}, (error, result) => {
+                if (!error) {
+                    console.log("Result : " + JSON.stringify(result));
+                    //this.spots =result.data;
+                    console.log("Spots : " + result.data);
+                }
+                else {
+                    console.log("Error GET : " + error);
+                }
+            });
+            console.log("success API call, data : " + callResult);
+        } catch (e) {
+            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+            console.log("Fail api call : " + e);
+        }
+        console.log("Getting spots for number number" + id);
         this.spots.push(
             {lat: 10, lng: 20, id: 0},
             {lat: 10, lng: 20.002, id: 1},
