@@ -1,16 +1,31 @@
-<div *ngIf="field">
-    <a href="#" (click)="removeField()">CHange field</a>
-    <map>Loading ...</map>
+<div *ngIf="handler.showList">
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large brown darken-2" (click)="resetField()">
+            <i class="large material-icons">chevron_left</i>
+        </a>
+    </div>
+    <div style="display: flex; flex-direction: row">
+        <div>
+            <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
+        </div>
+        <div>
+            <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
+        </div>
+    </div>
+
 </div>
-<div *ngIf="!field">
-    <ul>
-        <li><a (click)="getField(1)">Item 1</a></li>
-        <li><a (click)="getField(2)">Item 2</a></li>
-        <li><a (click)="getField(3)">Item 3</a></li>
-        <li><a (click)="getField(4)">Item 4</a></li>
-        <li><a (click)="getField(5)">Item 5</a></li>
-        <li><a (click)="getField(6)">Item 6</a></li>
-        <li><a (click)="getField(7)">Item 7</a></li>
-        <li><a (click)="getField(8)">Item 8</a></li>
-    </ul>
+<div class="row" *ngIf="!handler.showList">
+    <div class="col s12 m6 l4" *ngFor="let f of fields; let i of index">
+        <div class="card green lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">
+                    <i class="material-icons">room</i>
+                    {{f.name}}
+                </span>
+            </div>
+            <div class="card-action green">
+                <a (click)="updateField(f.id)" href="#" class="brown-text">Examiner ce champ</a>
+            </div>
+        </div>
+    </div>
 </div>

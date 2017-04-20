@@ -1,7 +1,7 @@
 /**
  * Created by ventinc on 19/04/17.
  */
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import template from './map.component.html';
 
 interface Field
@@ -12,7 +12,7 @@ interface Field
     id: number
 }
 
-interface Marker
+interface Spot
 {
     lng: number,
     lat: number,
@@ -21,34 +21,28 @@ interface Marker
 
 @Component({
     selector: 'map',
-    styles: [`
-        .sebm-google-map-container {
-            height: 300px;
-        }
-    `],
     template
 })
-export class MapComponent {
-    private markers: Marker[] = [];
-    @Input() private field: Field = {
-        lat: 10,
-        lng: 20,
-        id: 234,
-        name: "Champs de fleurs"
-    };
+export class MapComponent implements OnInit {
+
+    private dataReady = false;
+
+    @Input() private field: Field;
+    @Input() private spots: Spot[];
+    @Output() spotSelect: EventEmitter<Spot> = new EventEmitter<Spot>();
 
     constructor() {
-        this.markers.push(
-            {lat: 10, lng: 20, id: 10},
-            {lat: 10, lng: 20.002, id: 9},
-            {lat: 10, lng: 20.004, id: 8},
-            {lat: 10, lng: 20.006, id: 7},
-        );
     }
 
-    markerClick(mark: Marker)
+    markerClick(mark: Spot)
     {
         console.log(mark);
+        this.spotSelect.emit(mark);
     }
 
+    ngOnInit()
+    {
+        console.log("Spots in child : " + this.spots);
+        this.dataReady = true;
+    }
 }
