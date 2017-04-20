@@ -1,9 +1,9 @@
 <div class="col s12 m12" [ngClass]="{'l6' : spotSelected, 'l12' : !spotSelected}">
     <div class="card green lighten-1" *ngIf="dataReady">
         <div class="card-header">
-            <sebm-google-map [latitude]="field.lat" [longitude]="field.lng" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
+            <sebm-google-map [latitude]="field.latitude" [longitude]="field.longitude" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
                 Loading...
-                <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.lat" [longitude]="s.lng" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
+                <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.latitude" [longitude]="s.longitude" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
             </sebm-google-map>
         </div>
         <div class="card-content white-text">
