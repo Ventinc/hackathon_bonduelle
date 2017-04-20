@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420070802) do
+ActiveRecord::Schema.define(version: 20170420141331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20170420070802) do
 
   create_table "parcels", force: :cascade do |t|
     t.integer "field_id"
+    t.float   "longitude"
+    t.float   "latitude"
     t.index ["field_id"], name: "index_parcels_on_field_id", using: :btree
   end
 

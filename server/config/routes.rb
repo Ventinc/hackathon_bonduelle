@@ -8,6 +8,12 @@ Rails.application.routes.draw do
       put         '/field/:id'  => 'field#update'
       delete      '/field/:id'  => 'field#delete'
 
+      get         '/field/:field_id/parcels'    => 'parcel#index'
+      post        '/field/:field_id/parcels'    => 'parcel#new'
+      get         '/field/:field_id/parcel/:id' => 'parcel#get'
+      put         '/field/:field_id/parcel/:id' => 'parcel#update'
+      delete      '/field/:field_id/parcel/:id' => 'parcel#delete'
+
       get         '/field/:field_id/parcel/:parcel_id/humidities'   => 'humidity#index'
       post        '/field/:field_id/parcel/:parcel_id/humidities'   => 'humidity#new'
       get         '/field/:field_id/parcel/:parcel_id/humidity/:id' => 'humidity#get'
