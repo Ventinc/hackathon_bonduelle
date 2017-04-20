@@ -11,11 +11,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "sourceMap": true,
-    "module": "commonjs",
-    "types": [
-      "jquery",
-      "materialize-css"
-    ]
+    "module": "commonjs"
   },
   "exclude": [
     "node_modules"
