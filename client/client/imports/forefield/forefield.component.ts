@@ -25,6 +25,20 @@ interface Crop
     field_id: number
 }
 
+interface Weather
+{
+    id: number,
+    description: string,
+    temperature: number,
+    humidity: number,
+    pressure: number,
+    wind_speed: number,
+    wind_dir: number,
+    created: string,
+    updated: string,
+    field_id: number
+}
+
 interface Field
 {
     id: number
@@ -32,7 +46,8 @@ interface Field
     latitude: number,
     name: string,
     parcels: Spot[],
-    culture: Crop[]
+    culture: Crop[],
+    weather: Weather
 }
 
 class Handler {
@@ -108,6 +123,23 @@ export class ForefieldComponent {
                             // Got a network error, timeout, or HTTP error in the 400 or 500 range.
                             console.log("Fail api call : " + e);
                         }
+
+                        try {
+                            console.log("Request crop with : http://127.0.0.1:8080/api/v1/field/" + field.id + '/weathers/lastest');
+                            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + field.id + '/weathers/lastest', {}, (error, result) => {
+                                if (!error) {
+                                    console.log("Result Weather : " + JSON.stringify(result));
+                                    field.weather = result.data;
+                                    console.log("Weather : " + JSON.stringify(field.weather));
+                                }
+                                else {
+                                    console.log("Error GET : " + error);
+                                }
+                            });
+                        } catch (e) {
+                            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+                            console.log("Fail api call : " + e);
+                        }
                     });
                 }
                 else {
@@ -131,6 +163,7 @@ export class ForefieldComponent {
         this.handler.setCurrentField(-1);
         this.handler.setCurrentSpot(-1);
         this.spots = [];
+        this.spotData = undefined;
         console.log("Spots after reset : " + JSON.stringify(this.spots));
     }
 
