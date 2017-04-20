@@ -89,16 +89,15 @@ int main()
   idx = 0;
   /* simple noncanonical input */
   do {
-    //printf("idx => %d\n", idx);
     rdlen = read(fd, &car, 1);
     if (rdlen > 0) {
       //  printf("read %c\n", car);
       buf[idx] = car;
-      //printf("buf => %s\n", buf);
       idx += 1;
-      if (car == '\n' || idx == 80) {
+      if (car == '\n' || car == '\0' || idx == 80) {
 	buf[idx] = '\0';
 	printf("%s", buf);
+	fflush(stdout);
 	idx = 0;
       }
     } else if (rdlen < 0) {
