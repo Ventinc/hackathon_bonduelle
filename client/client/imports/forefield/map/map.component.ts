@@ -4,19 +4,22 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import template from './map.component.html';
 
-interface Field
-{
-    lng: number,
-    lat: number,
-    name: string,
-    id: number
-}
-
 interface Spot
 {
-    lng: number,
-    lat: number,
-    id: number | string
+    id: number
+    field_id: number
+    longitude: number,
+    latitude: number,
+    humidities: number[];
+}
+
+interface Field
+{
+    id: number
+    longitude: number,
+    latitude: number,
+    name: string,
+    parcels: Spot[]
 }
 
 @Component({
@@ -44,7 +47,7 @@ export class MapComponent implements OnInit {
 
     ngOnInit()
     {
-        console.log("Spots in child : " + this.spots);
+        console.log("Spots in child : " + JSON.stringify(this.spots));
         this.dataReady = true;
     }
 }

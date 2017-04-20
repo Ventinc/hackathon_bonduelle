@@ -3,20 +3,24 @@
  */
 import { Component } from '@angular/core';
 import template from './forefield.component.html';
-
-interface Field
-{
-    lng: number,
-    lat: number,
-    name: string,
-    id: number
-}
+import { HTTP } from 'meteor/http';
 
 interface Spot
 {
-    lng: number,
-    lat: number,
     id: number
+    field_id: number
+    longitude: number,
+    latitude: number,
+    humidities: number[];
+}
+
+interface Field
+{
+    id: number
+    longitude: number,
+    latitude: number,
+    name: string,
+    parcels: Spot[]
 }
 
 class Handler {
@@ -64,18 +68,28 @@ export class ForefieldComponent {
     private spots: Spot[] = [];
 
     constructor() {
-        this.fields.push(
-            {lng: 20, lat: 10, name: "Field0", id: 0},
-            {lng: 21, lat: 10, name: "Field1", id: 1},
-            {lng: 22, lat: 10, name: "Field2", id: 2},
-            {lng: 23, lat: 10, name: "Field3", id: 3},
-            {lng: 24, lat: 10, name: "Field4", id: 4}
-        )
+
+        try {
+            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/fields', {}, (error, result) => {
+                if (!error) {
+                    console.log("Result : " + JSON.stringify(result));
+                    this.fields = result.data;
+                    console.log("Fields : " + this.fields);
+                }
+                else {
+                    console.log("Error GET : " + error);
+                }
+            });
+            console.log("success API call, data : " + callResult);
+        } catch (e) {
+            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+            console.log("Fail api call : " + e);
+        }
     }
 
     updateField(id: number)
     {
-        this.handler.setCurrentField(id);
+        this.handler.setCurrentField(id - 1);
         this.getSpots(id);
     }
 
@@ -84,26 +98,44 @@ export class ForefieldComponent {
         this.handler.setCurrentField(-1);
         this.handler.setCurrentSpot(-1);
         this.spots = [];
+        console.log("Spots after reset : " + JSON.stringify(this.spots));
     }
 
     getSpots(id: number)
     {
         // Use id of field to request list of spots in API
 
-        console.log("Pushing spots for field nb : " + id);
-        this.spots.push(
-            {lat: 10, lng: 20, id: 0},
-            {lat: 10, lng: 20.002, id: 1},
-            {lat: 10, lng: 20.004, id: 2},
-            {lat: 10, lng: 20.006, id: 3},
-        );
-        console.log("Markers in parent : " + this.spots);
+        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + id + "/parcels");
+        try {
+            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + id + "/parcels", {}, (error, result) => {
+                if (!error) {
+                    console.log("Result : " + JSON.stringify(result));
+                    this.spots = result.data;
+                    console.log("Spots Parent : " + JSON.stringify(this.spots));
+                    //this.spots =result.data;
+                }
+                else {
+                    console.log("Error GET : " + error);
+                }
+            });
+            console.log("success API call, data : " + callResult);
+        } catch (e) {
+            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+            console.log("Fail api call : " + e);
+        }
     }
 
     getSpotData(event)
     {
         console.log("=== Api Call for Spot eventHandler ===");
-        this.handler.setCurrentSpot(event.id);
+        console.log("Id of spot : " + event.id);
+        for (var i = 0 ; i < this.spots.length ; i++) {
+            if (this.spots[i].id == event.id) {
+                console.log("Found at index : " + i);
+                this.handler.setCurrentSpot(i);
+            }
+        }
+//        this.handler.setCurrentSpot(i);
         console.log("Should ask for Spot n°" + this.handler.getCurrentSpot() + " of field n°" + this.handler.getCurrentField())
     }
 
