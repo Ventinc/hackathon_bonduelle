@@ -21,12 +21,6 @@ interface Spot
 
 @Component({
     selector: 'map',
-    styles: [`
-        .sebm-google-map-container {
-            height: 400px;
-            width: 700px;
-        }
-    `],
     template
 })
 export class MapComponent implements OnInit {
