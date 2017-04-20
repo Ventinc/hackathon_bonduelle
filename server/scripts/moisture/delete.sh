@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$#" -ne 4 ]; then
-    echo "Usage: list.sh [base url] [field id] [parcel id] [humidity id]"
+    echo "Usage: list.sh [base url] [field id] [parcel id] [moisture id]"
     exit 1
 fi
 

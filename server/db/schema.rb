@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420203527) do
+ActiveRecord::Schema.define(version: 20170420210729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 20170420203527) do
     t.integer  "crop_id"
     t.index ["crop_id"], name: "index_interventions_on_crop_id", using: :btree
     t.index ["parcel_id"], name: "index_interventions_on_parcel_id", using: :btree
+  end
+
+  create_table "luminosities", force: :cascade do |t|
+    t.float    "value"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "date"
+    t.integer  "parcel_id"
+    t.index ["parcel_id"], name: "index_luminosities_on_parcel_id", using: :btree
   end
 
   create_table "moistures", force: :cascade do |t|
@@ -102,6 +111,7 @@ ActiveRecord::Schema.define(version: 20170420203527) do
   add_foreign_key "humidities", "parcels"
   add_foreign_key "interventions", "crops"
   add_foreign_key "interventions", "parcels"
+  add_foreign_key "luminosities", "parcels"
   add_foreign_key "moistures", "parcels"
   add_foreign_key "owners", "fields"
   add_foreign_key "parcels", "fields"

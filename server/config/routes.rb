@@ -32,6 +32,12 @@ Rails.application.routes.draw do
       put         '/field/:field_id/parcel/:parcel_id/moisture/:id'  => 'moisture#update'
       delete      '/field/:field_id/parcel/:parcel_id/moisture/:id'  => 'moisture#delete'
 
+      get         '/field/:field_id/parcel/:parcel_id/luminosities'   => 'luminosity#index'
+      post        '/field/:field_id/parcel/:parcel_id/luminosities'   => 'luminosity#new'
+      get         '/field/:field_id/parcel/:parcel_id/luminosity/:id' => 'luminosity#get'
+      put         '/field/:field_id/parcel/:parcel_id/luminosity/:id' => 'luminosity#update'
+      delete      '/field/:field_id/parcel/:parcel_id/luminosity/:id' => 'luminosity#delete'
+
       get         '/field/:field_id/crops'          => 'crop#index'
       post        '/field/:field_id/crops'          => 'crop#new'
       get         '/field/:field_id/crops/lastest'  => 'crop#lastest'
