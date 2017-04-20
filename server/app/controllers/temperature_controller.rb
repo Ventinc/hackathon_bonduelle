@@ -1,24 +1,24 @@
-class HumidityController < ApplicationController
+class TemperatureController < ApplicationController
   before_action :validate_ids
 
   def index
-    render json: Humidity.where(parcel_id: @parcel.id)
+    render json: Temperature.where(parcel_id: @parcel.id)
   end
 
   def get
-    render json: Humidity.where(parcel_id: @parcel.id).find(params[:id])
+    render json: Temperature.where(parcel_id: @parcel.id).find(params[:id])
   end
 
   def new
-    render json: Humidity.create(humidity_params)
+    render json: Temperature.create(humidity_params)
   end
 
   def update
-    render json: Humidity.where(parcel_id: @parcel.id).find(params[:id]).update(humidity_params)
+    render json: Temperature.where(parcel_id: @parcel.id).find(params[:id]).update(humidity_params)
   end
 
   def delete
-    render json: Humidity.where(parcel_id: @parcel.id).find(params[:id]).delete
+    render json: Temperature.where(parcel_id: @parcel.id).find(params[:id]).delete
   end
 
   private

@@ -1,11 +1,39 @@
-<div class="col s12 m12 l12">
+<div class="col s12 m12" [ngClass]="{'l6' : spotSelected, 'l12' : !spotSelected}">
     <div class="card green lighten-1" *ngIf="dataReady">
-        <sebm-google-map [latitude]="field.lat" [longitude]="field.lng" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
-            Loading...
-            <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.lat" [longitude]="s.lng" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
-        </sebm-google-map>
+        <div class="card-header">
+            <sebm-google-map [latitude]="field.latitude" [longitude]="field.longitude" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
+                Loading...
+                <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.latitude" [longitude]="s.longitude" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
+            </sebm-google-map>
+        </div>
         <div class="card-content white-text">
             <span class="card-title">Carte du champs</span>
+            <div class="row">
+                <div class="col l6 s12 m12 center-align">
+                    <h3>18 <i class="wi wi-celsius"></i></h3>
+                </div>
+                <div class="col l6 s12 m12 center-align">
+                    <h3>38 <i class="wi wi-humidity"></i></h3>
+                </div>
+            </div>
+            <div class="row">
+                <p class="center-align">70 <i class="fa fa-percent"></i></p>
+                <div class="progress brown lighten-4">
+                    <div class="determinate brown lighten-1" style="width: 70%"></div>
+                </div>
+            </div>
+            <div class="row center-align">
+                <p class="flow-text">
+                    Lat 18.20000
+                    <i class="material-icons">room</i>
+                    Long 20.29423
+                </p>
+            </div>
+            <div class="row center-align">
+                <p class="flow-text">
+                    <i class="fa fa-leaf"></i> Carottes
+                </p>
+            </div>
         </div>
     </div>
 </div>

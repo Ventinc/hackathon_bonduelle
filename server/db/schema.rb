@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420141331) do
+ActiveRecord::Schema.define(version: 20170420200755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 20170420141331) do
     t.index ["field_id"], name: "index_parcels_on_field_id", using: :btree
   end
 
+  create_table "temperatures", force: :cascade do |t|
+    t.float    "value"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "date"
+    t.integer  "parcel_id"
+    t.index ["parcel_id"], name: "index_temperatures_on_parcel_id", using: :btree
+  end
+
   create_table "weathers", force: :cascade do |t|
     t.string   "description"
     t.float    "temperature"
@@ -86,5 +95,6 @@ ActiveRecord::Schema.define(version: 20170420141331) do
   add_foreign_key "interventions", "parcels"
   add_foreign_key "owners", "fields"
   add_foreign_key "parcels", "fields"
+  add_foreign_key "temperatures", "parcels"
   add_foreign_key "weathers", "fields"
 end
