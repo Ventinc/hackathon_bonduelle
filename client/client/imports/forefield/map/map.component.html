@@ -1,7 +1,7 @@
-<div class="col s12 m12" [ngClass]="{'l6' : spotSelected, 'l12' : !spotSelected}">
+<div class="col s12 m12" [ngClass]="{'l6': spotSelected, 'l12': !spotSelected}">
     <div class="card green lighten-1" *ngIf="dataReady">
         <div class="card-header">
-            <sebm-google-map [latitude]="field.latitude" [longitude]="field.longitude" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
+            <sebm-google-map [latitude]="field.latitude" [longitude]="field.longitude" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false [scrollwheel]=false>
                 Loading...
                 <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.latitude" [longitude]="s.longitude" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
             </sebm-google-map>
@@ -34,6 +34,28 @@
                     <i class="fa fa-leaf"></i> Carottes
                 </p>
             </div>
+        </div>
+    </div>
+    <div class="card green lighten-1">
+        <div class="card-content white-text">
+            <span class="card-title">Liste des parcelles</span>
+            <table class="highlight">
+                <thead>
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Longitude / Latitude)</th>
+                    <th>Nombre d'interventions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let spot of spots" (click)="markerClick(spot)">
+                    <td>{{spot.id}}</td>
+                    <td>{{spot.longitude}} / {{spot.latitude}}</td>
+                    <td>34</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

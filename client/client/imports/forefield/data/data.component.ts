@@ -33,6 +33,8 @@ export class DataComponent implements OnInit {
 
     @Input() private field: Field;
     @Input() private spot: Spot;
+    @Input() private spots: Spot[];
+    private tab : number = 1;
 
     constructor() {
     }
@@ -41,5 +43,10 @@ export class DataComponent implements OnInit {
     {
         console.log("Spot in data : " + JSON.stringify(this.spot));
         this.dataReady = true;
+    }
+
+    changeTab(id : number)
+    {
+        this.tab = id;
     }
 }

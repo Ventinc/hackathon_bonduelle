@@ -3,6 +3,40 @@
         <div class="card green lighten-1">
             <div class="card-content white-text">
                 <span class="card-title">Parcelle {{spot.id}}</span>
+                <div class="row">
+                    <div *ngIf="tab == 1" class="col s12">
+                        <h5 class="center-align light">Informations</h5>
+                        
+                    </div>
+                    <div *ngIf="tab == 2" id="interventions" class="col s12">
+                        <h5 class="center-align light">Interventions</h5>
+
+                        <div class="row">
+                            <form class="col s12 green-text text-darken-2">
+                                <div class="input-field col s12">
+                                    <select materialize="material_select">
+                                        <option disabled="" selected="" value="">Type</option>
+                                        <option value="1">Option 1</option>
+                                        <option value="1">Option 2</option>
+                                        <option value="1">Option 3</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col s12 white-text">
+                                    <textarea id="textarea1" class="materialize-textarea white-text"></textarea>
+                                    <label for="textarea1">Description</label>
+                                </div>
+                                <div class="row right">
+                                    <button class="btn-floating waves-effect waves-green brown white-text btn-large"><i class="material-icons">send</i></button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-action green">
+                <a class="brown-text" href="#" (click)="changeTab(1)">Informations</a>
+                <a class="brown-text" href="#" (click)="changeTab(2)">Interventions</a>
             </div>
         </div>
     </div>
