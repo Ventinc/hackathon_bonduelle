@@ -13,6 +13,17 @@ interface Spot
     humidities: number[];
 }
 
+interface Crop
+{
+    id: number,
+    name: string,
+    quantity: number,
+    harvest: string,
+    created: string,
+    updated: string,
+    field_id: number
+}
+
 interface Field
 {
     id: number
@@ -32,6 +43,7 @@ export class MapComponent implements OnInit {
 
     @Input() private field: Field;
     @Input() private spots: Spot[];
+    @Input() private crop: Crop;
     @Output() public spotSelect: EventEmitter<Spot> = new EventEmitter<Spot>();
     private spotSelected : boolean = false;
 
@@ -49,5 +61,16 @@ export class MapComponent implements OnInit {
     {
         console.log("Spots in child : " + JSON.stringify(this.spots));
         this.dataReady = true;
+    }
+
+    getCurrentCulture(culture)
+    {
+        if (culture[0]) {
+            console.log("Culture in map data : " + JSON.stringify(culture[0].name));
+            return culture[0].name;
+        }
+        else {
+            return "None";
+        }
     }
 }
