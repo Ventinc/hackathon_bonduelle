@@ -90,15 +90,14 @@ class GPS:
 		try:
 			ind=GPS.inp.index('$GPGGA',5,len(GPS.inp))	#Sometimes multiple GPS data packets come into the stream. Take the data only after the last '$GPGGA' is seen
 			GPS.inp=GPS.inp[ind:]
-		except ValueError:
-			print ("")
-		GPS.GGA=GPS.inp.split(",")	#Split the stream into individual parts
-		return [GPS.GGA]
+                except ValueError:
+                        a=""
+                GPS.GGA=GPS.inp.split(",")	#Split the stream into individual parts
+                return [GPS.GGA]
 		
 	#Split the data into individual elements
 	def vals(self):
-		if enable_debug:
-			print(GPS.GGA)
+
 			
 		time=GPS.GGA[1]
 		
@@ -160,16 +159,12 @@ if __name__ == "__main__":
                         longitude = g.decimal_degrees(safefloat(longitude))                        
                 if long_ew == "W":
                         longitude = -longitude
-                try:
-                        print("Time\t\t: %s\nFix status\t: %d\nSats in view\t: %d\nAltitude\t: %s\nLat\t\t: %f\nLong\t\t: %f") %(t,fix,sats,alt,lat,longitude)
-                except:
-                        print("Time\t\t: %s\nFix status\t: %s\nSats in view\t: %s\nAltitude\t: %s\nLat\t\t: %s\nLong\t\t: %s") %(t,str(fix),str(sats),str(alt),str(lat),str(longitude))
-				
+                print("%f\t%f") % (lat,longitude)
                 s=str(t)+","+str(safefloat(lat)/100)+","+str(safefloat(longitude)/100)+"\n"	
 				
                 if enable_save_to_file:
                         f.write(s)	#Save to file
-                time.sleep(2)
+                #time.sleep(2)
         except IndexError:
                 print ("Unable to read")
                 if enable_save_to_file:

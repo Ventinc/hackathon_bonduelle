@@ -1,10 +1,10 @@
 class FieldController < ApplicationController
   def index
-    render :json => Field.all, :methods => :parcels
+    render :json => Field.all
   end
 
   def get
-    render :json => Field.find(params[:id]), :methods => :parcels
+    render :json => Field.find(params[:id])
   end
 
   def new
