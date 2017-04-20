@@ -3,6 +3,7 @@
  */
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import template from './map.component.html';
+import * as $  from 'jquery';
 
 interface Spot
 {

@@ -1,6 +1,13 @@
-@import "imports/materialize/sass/components/color";
+@import "../node_modules/materialize-css/sass/components/color";
 $primary-color : color("brown", "base") !default;
-@import "imports/materialize/sass/materialize";
+$input-border-color : color("green", "darken-3") !default;
+$dropdown-color : color("grey", "lighten-4") !default;
+$dropdown-bg-color : color("brown", "base") !default;
+$dropdown-hover-bg-color : color("brown", "darken-1") !default;
+$input-focus-color : color("brown", "base") !default;
+@import "../node_modules/materialize-css/sass/components/variables";
+
+@import "../node_modules/materialize-css/sass/materialize";
 
 .preloader-wrapper {
   margin-top: 200px;
@@ -22,9 +29,27 @@ main {
 }
 
 .parallax-container {
-  height: 300px;
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+  .section {
+    width: 100%;
+  }
 }
 
-.parallax {
-  background-position: center;
+table.highlight {
+  tbody {
+    tr:hover {
+      background-color: color("green", "darken-1");
+      cursor: pointer;
+    }
+  }
+}
+
+textarea:focus {
+  border-bottom: 1px solid color("brown", "base");
+  -webkit-box-shadow: 0 1px 0 0 color("brown", "base");
+  -moz-box-shadow: 0 1px 0 0 color("brown", "base");
+  box-shadow: 0 1px 0 0 color("brown", "base");
 }
