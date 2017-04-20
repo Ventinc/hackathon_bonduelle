@@ -20,12 +20,37 @@ Rails.application.routes.draw do
       put         '/field/:field_id/parcel/:parcel_id/humidity/:id' => 'humidity#update'
       delete      '/field/:field_id/parcel/:parcel_id/humidity/:id' => 'humidity#delete'
 
+      get         '/field/:field_id/parcel/:parcel_id/temperatures'     => 'temperature#index'
+      post        '/field/:field_id/parcel/:parcel_id/temperatures'     => 'temperature#new'
+      get         '/field/:field_id/parcel/:parcel_id/temperature/:id'  => 'temperature#get'
+      put         '/field/:field_id/parcel/:parcel_id/temperature/:id'  => 'temperature#update'
+      delete      '/field/:field_id/parcel/:parcel_id/temperature/:id'  => 'temperature#delete'
+
+      get         '/field/:field_id/parcel/:parcel_id/moistures'     => 'moisture#index'
+      post        '/field/:field_id/parcel/:parcel_id/moistures'     => 'moisture#new'
+      get         '/field/:field_id/parcel/:parcel_id/moisture/:id'  => 'moisture#get'
+      put         '/field/:field_id/parcel/:parcel_id/moisture/:id'  => 'moisture#update'
+      delete      '/field/:field_id/parcel/:parcel_id/moisture/:id'  => 'moisture#delete'
+
+      get         '/field/:field_id/parcel/:parcel_id/luminosities'   => 'luminosity#index'
+      post        '/field/:field_id/parcel/:parcel_id/luminosities'   => 'luminosity#new'
+      get         '/field/:field_id/parcel/:parcel_id/luminosity/:id' => 'luminosity#get'
+      put         '/field/:field_id/parcel/:parcel_id/luminosity/:id' => 'luminosity#update'
+      delete      '/field/:field_id/parcel/:parcel_id/luminosity/:id' => 'luminosity#delete'
+
       get         '/field/:field_id/crops'          => 'crop#index'
       post        '/field/:field_id/crops'          => 'crop#new'
       get         '/field/:field_id/crops/lastest'  => 'crop#lastest'
       get         '/field/:field_id/crop/:id'       => 'crop#get'
       put         '/field/:field_id/crop/:id'       => 'crop#update'
       delete      '/field/:field_id/crop/:id'       => 'crop#delete'
+
+      get         '/field/:field_id/weathers'         => 'weather#index'
+      post        '/field/:field_id/weathers'         => 'weather#new'
+      get         '/field/:field_id/weathers/lastest' => 'weather#lastest'
+      get         '/field/:field_id/weather/:id'      => 'weather#get'
+      delete      '/field/:field_id/weather/:id'      => 'weather#delete'
+      get         '/actions/weather/gather'           => 'weather#create_all'
     end
   end
 end

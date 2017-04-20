@@ -19,8 +19,8 @@
             </div>
             <div class="parallax" materialize="parallax"><img src="http://cdn.pcwallart.com/images/wheat-field-wallpaper-2.jpg""></div>
         </div>
-        <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
-        <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
+        <map [field]="fields[handler.getCurrentField()]" [crop]="fields[handler.getCurrentField()].culture" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
+        <data [field]="fields[handler.getCurrentField()]" [spot]="spotData"></data>
     </div>
     <div *ngIf="!handler.showList">
         <nav class="white green">
@@ -66,8 +66,17 @@
                             </p>
                         </div>
                     </div>
-                    <div class="card-action green">
-                        <a (click)="updateField(f.id)" href="#" class="brown-text">Examiner ce champ</a>
+                    <div class="row center-align">
+                        <p class="flow-text">
+                            Latitude {{f.latitude}}
+                            <i class="material-icons">room</i>
+                            {{f.longitude}} Longitude
+                        </p>
+                    </div>
+                    <div class="row center-align">
+                        <p class="flow-text">
+                            <i class="fa fa-leaf"></i> <ng-container *ngIf="f.culture"> {{ getCurrentCulture(f) }} </ng-container>
+                        </p>
                     </div>
                 </div>
             </div>

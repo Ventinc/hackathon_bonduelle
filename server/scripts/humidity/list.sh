@@ -5,4 +5,4 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
-curl $1/api/v1/field/$2/parcel/$3/humidities
+curl $1/api/v1/field/$2/parcel/$3/humidities.json

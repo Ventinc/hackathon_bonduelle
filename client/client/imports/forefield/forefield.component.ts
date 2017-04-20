@@ -14,13 +14,40 @@ interface Spot
     humidities: number[];
 }
 
+interface Crop
+{
+    id: number,
+    name: string,
+    quantity: number,
+    harvest: string,
+    created: string,
+    updated: string,
+    field_id: number
+}
+
+interface Weather
+{
+    id: number,
+    description: string,
+    temperature: number,
+    humidity: number,
+    pressure: number,
+    wind_speed: number,
+    wind_dir: number,
+    created: string,
+    updated: string,
+    field_id: number
+}
+
 interface Field
 {
     id: number
     longitude: number,
     latitude: number,
     name: string,
-    parcels: Spot[]
+    parcels: Spot[],
+    culture: Crop[],
+    weather: Weather
 }
 
 class Handler {
@@ -65,22 +92,60 @@ export class ForefieldComponent {
 
     private handler = new Handler();
     private fields: Field[] = [];
+    private crops: Crop[] = [];
     private spots: Spot[] = [];
+    private spotData: Spot = undefined;
 
     constructor() {
 
         try {
-            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/fields', {}, (error, result) => {
+            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/fields', {}, (error, result) => {
                 if (!error) {
                     console.log("Result : " + JSON.stringify(result));
                     this.fields = result.data;
                     console.log("Fields : " + this.fields);
+
+                    this.fields.forEach( (field) => {
+                        try {
+                            console.log("Request crop with : https://eliastre100.fr/api/v1/field/" + field.id + '/crops/lastest');
+                            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + field.id + '/crops/lastest', {}, (error, result) => {
+                                if (!error) {
+                                    console.log("Field : " + JSON.stringify(field));
+                                    console.log("Result Crops : " + JSON.stringify(result));
+                                    field.culture = [result.data];
+                                    console.log("Crops : " + JSON.stringify(field.culture));
+                                }
+                                else {
+                                    console.log("Error GET : " + error);
+                                }
+                            });
+                        } catch (e) {
+                            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+                            console.log("Fail api call : " + e);
+                        }
+
+                        try {
+                            console.log("Request crop with : https://eliastre100.fr/api/v1/field/" + field.id + '/weathers/lastest');
+                            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + field.id + '/weathers/lastest', {}, (error, result) => {
+                                if (!error) {
+                                    console.log("Result Weather : " + JSON.stringify(result));
+                                    field.weather = result.data;
+                                    console.log("Weather : " + JSON.stringify(field.weather));
+                                }
+                                else {
+                                    console.log("Error GET : " + error);
+                                }
+                            });
+                        } catch (e) {
+                            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+                            console.log("Fail api call : " + e);
+                        }
+                    });
                 }
                 else {
                     console.log("Error GET : " + error);
                 }
             });
-            console.log("success API call, data : " + callResult);
         } catch (e) {
             // Got a network error, timeout, or HTTP error in the 400 or 500 range.
             console.log("Fail api call : " + e);
@@ -89,7 +154,13 @@ export class ForefieldComponent {
 
     updateField(id: number)
     {
-        this.handler.setCurrentField(id - 1);
+        for (var i = 0 ; i < this.fields.length ; i++) {
+            if (this.fields[i].id == id) {
+                console.log("Found field at index : " + i);
+                this.handler.setCurrentField(i);
+            }
+        }
+//        this.handler.setCurrentField(id - 1);
         this.getSpots(id);
     }
 
@@ -98,6 +169,7 @@ export class ForefieldComponent {
         this.handler.setCurrentField(-1);
         this.handler.setCurrentSpot(-1);
         this.spots = [];
+        this.spotData = undefined;
         console.log("Spots after reset : " + JSON.stringify(this.spots));
     }
 
@@ -105,9 +177,9 @@ export class ForefieldComponent {
     {
         // Use id of field to request list of spots in API
 
-        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + id + "/parcels");
+        console.log("Get request : https://eliastre100.fr/api/v1/field/" + id + "/parcels");
         try {
-            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + id + "/parcels", {}, (error, result) => {
+            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + id + "/parcels", {}, (error, result) => {
                 if (!error) {
                     console.log("Result : " + JSON.stringify(result));
                     this.spots = result.data;
@@ -136,7 +208,39 @@ export class ForefieldComponent {
             }
         }
 //        this.handler.setCurrentSpot(i);
-        console.log("Should ask for Spot n°" + this.handler.getCurrentSpot() + " of field n°" + this.handler.getCurrentField())
+        console.log("Should ask for Spot n°" + this.fields[this.handler.getCurrentField()].id + " of field n°" + this.handler.getCurrentField())
+
+
+        console.log("Get request : https://eliastre100.fr/api/v1/field/" + this.fields[this.handler.getCurrentField()].id + "/parcel/" + event.id);
+        try {
+            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + this.fields[this.handler.getCurrentField()].id + "/parcel/" + event.id, {}, (error, result) => {
+                if (!error) {
+                    console.log("Result : " + JSON.stringify(result));
+                    this.spotData = result.data;
+                    console.log("Spot DATA Parent : " + JSON.stringify(this.spotData));
+                    //this.spots =result.data;
+                }
+                else {
+                    console.log("Error GET : " + error);
+                }
+            });
+            console.log("success API call, data : " + callResult);
+        } catch (e) {
+            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+            console.log("Fail api call : " + e);
+        }
+
+    }
+
+    getCurrentCulture(field)
+    {
+        if (field.culture[0]) {
+            console.log("Field data : " + JSON.stringify(field.culture[0].name));
+            return field.culture[0].name;
+        }
+        else {
+            return "None";
+        }
     }
 
     // Call on API on NgInit for field list + dataReady Wrapper ?

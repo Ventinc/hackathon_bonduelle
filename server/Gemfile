@@ -49,3 +49,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Allow CORS request
 gem 'rack-cors', :require => 'rack/cors'
+
+# Allow access to openWeatherMap
+gem 'open-weather'
