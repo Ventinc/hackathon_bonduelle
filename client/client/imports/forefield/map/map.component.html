@@ -24,14 +24,14 @@
             </div>
             <div class="row center-align">
                 <p class="flow-text">
-                    Lat 18.20000
+                    Latitude {{field.latitude}}
                     <i class="material-icons">room</i>
-                    Long 20.29423
+                    {{field.longitude}} Longitude
                 </p>
             </div>
             <div class="row center-align">
                 <p class="flow-text">
-                    <i class="fa fa-leaf"></i> Carottes
+                    <i class="fa fa-leaf"></i> <ng-container *ngIf="crop"> {{ getCurrentCulture(crop) }} </ng-container>
                 </p>
             </div>
         </div>

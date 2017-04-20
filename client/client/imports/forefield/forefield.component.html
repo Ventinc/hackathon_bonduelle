@@ -14,8 +14,8 @@
                 
             </div>
         </div>
-        <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
-        <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
+        <map [field]="fields[handler.getCurrentField()]" [crop]="fields[handler.getCurrentField()].culture" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
+        <data [field]="fields[handler.getCurrentField()]" [spot]="spotData"></data>
     </div>
     <div class="row" *ngIf="!handler.showList">
         <div class="col s12 m6 l4" *ngFor="let f of fields">
@@ -38,14 +38,14 @@
                     </div>
                     <div class="row center-align">
                         <p class="flow-text">
-                            Lat 18.20000
+                            Latitude {{f.latitude}}
                             <i class="material-icons">room</i>
-                            Long 20.29423
+                            {{f.longitude}} Longitude
                         </p>
                     </div>
                     <div class="row center-align">
                         <p class="flow-text">
-                            <i class="fa fa-leaf"></i> Carottes
+                            <i class="fa fa-leaf"></i> <ng-container *ngIf="f.culture"> {{ getCurrentCulture(f) }} </ng-container>
                         </p>
                     </div>
                 </div>
