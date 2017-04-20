@@ -99,7 +99,7 @@ export class ForefieldComponent {
     constructor() {
 
         try {
-            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/fields', {}, (error, result) => {
+            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/fields', {}, (error, result) => {
                 if (!error) {
                     console.log("Result : " + JSON.stringify(result));
                     this.fields = result.data;
@@ -107,8 +107,8 @@ export class ForefieldComponent {
 
                     this.fields.forEach( (field) => {
                         try {
-                            console.log("Request crop with : http://127.0.0.1:8080/api/v1/field/" + field.id + '/crops/lastest');
-                            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + field.id + '/crops/lastest', {}, (error, result) => {
+                            console.log("Request crop with : https://eliastre100.fr/api/v1/field/" + field.id + '/crops/lastest');
+                            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + field.id + '/crops/lastest', {}, (error, result) => {
                                 if (!error) {
                                     console.log("Field : " + JSON.stringify(field));
                                     console.log("Result Crops : " + JSON.stringify(result));
@@ -125,8 +125,8 @@ export class ForefieldComponent {
                         }
 
                         try {
-                            console.log("Request crop with : http://127.0.0.1:8080/api/v1/field/" + field.id + '/weathers/lastest');
-                            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + field.id + '/weathers/lastest', {}, (error, result) => {
+                            console.log("Request crop with : https://eliastre100.fr/api/v1/field/" + field.id + '/weathers/lastest');
+                            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + field.id + '/weathers/lastest', {}, (error, result) => {
                                 if (!error) {
                                     console.log("Result Weather : " + JSON.stringify(result));
                                     field.weather = result.data;
@@ -154,7 +154,13 @@ export class ForefieldComponent {
 
     updateField(id: number)
     {
-        this.handler.setCurrentField(id - 1);
+        for (var i = 0 ; i < this.fields.length ; i++) {
+            if (this.fields[i].id == id) {
+                console.log("Found field at index : " + i);
+                this.handler.setCurrentField(i);
+            }
+        }
+//        this.handler.setCurrentField(id - 1);
         this.getSpots(id);
     }
 
@@ -171,9 +177,9 @@ export class ForefieldComponent {
     {
         // Use id of field to request list of spots in API
 
-        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + id + "/parcels");
+        console.log("Get request : https://eliastre100.fr/api/v1/field/" + id + "/parcels");
         try {
-            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + id + "/parcels", {}, (error, result) => {
+            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + id + "/parcels", {}, (error, result) => {
                 if (!error) {
                     console.log("Result : " + JSON.stringify(result));
                     this.spots = result.data;
@@ -205,9 +211,9 @@ export class ForefieldComponent {
         console.log("Should ask for Spot n°" + this.fields[this.handler.getCurrentField()].id + " of field n°" + this.handler.getCurrentField())
 
 
-        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + this.fields[this.handler.getCurrentField()].id + "/parcel/" + event.id);
+        console.log("Get request : https://eliastre100.fr/api/v1/field/" + this.fields[this.handler.getCurrentField()].id + "/parcel/" + event.id);
         try {
-            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + this.fields[this.handler.getCurrentField()].id + "/parcel/" + event.id, {}, (error, result) => {
+            const callResult = HTTP.call('GET', 'https://eliastre100.fr/api/v1/field/' + this.fields[this.handler.getCurrentField()].id + "/parcel/" + event.id, {}, (error, result) => {
                 if (!error) {
                     console.log("Result : " + JSON.stringify(result));
                     this.spotData = result.data;
