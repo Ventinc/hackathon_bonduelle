@@ -1,24 +1,24 @@
-class TemperatureController < ApplicationController
+class MoistureController < ApplicationController
   before_action :validate_ids
 
   def index
-    render json: Temperature.where(parcel_id: @parcel.id)
+    render json: Moisture.where(parcel_id: @parcel.id)
   end
 
   def get
-    render json: Temperature.where(parcel_id: @parcel.id).find(params[:id])
+    render json: Moisture.where(parcel_id: @parcel.id).find(params[:id])
   end
 
   def new
-    render json: Temperature.create(temperature_params)
+    render json: Moisture.create(moisture_params)
   end
 
   def update
-    render json: Temperature.where(parcel_id: @parcel.id).find(params[:id]).update(temperature_params)
+    render json: Moisture.where(parcel_id: @parcel.id).find(params[:id]).update(moisture_params)
   end
 
   def delete
-    render json: Temperature.where(parcel_id: @parcel.id).find(params[:id]).delete
+    render json: Moisture.where(parcel_id: @parcel.id).find(params[:id]).delete
   end
 
   private
@@ -28,7 +28,7 @@ class TemperatureController < ApplicationController
     @parcel = Parcel.where(field_id: @field.id).find(params[:parcel_id])
   end
 
-  def temperature_params
+  def moisture_params
     authorized = params.permit(:longitude, :latitude, :value)
     authorized[:parcel_id] = @parcel.id
     if params.key?(:date)
