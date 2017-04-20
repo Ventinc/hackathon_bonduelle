@@ -6,7 +6,7 @@ class ParcelController < ApplicationController
   end
 
   def get
-    render :json => Parcel.where(field_id: @field.id).find(params[:id])
+    render :json => Parcel.where(field_id: @field.id).find(params[:id]), methods: :datas
   end
 
   def new

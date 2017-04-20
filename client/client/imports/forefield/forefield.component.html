@@ -14,8 +14,8 @@
                 
             </div>
         </div>
-        <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
-        <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
+        <map [field]="fields[handler.getCurrentField()]" [crop]="fields[handler.getCurrentField()].culture" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
+        <data [field]="fields[handler.getCurrentField()]" [spot]="spotData"></data>
     </div>
     <div class="row" *ngIf="!handler.showList">
         <div class="col s12 m6 l4" *ngFor="let f of fields">
@@ -24,10 +24,10 @@
                     <span class="card-title">{{f.name}}</span>
                     <div class="row">
                         <div class="col l6 s12 m12 center-align">
-                            <h3>18 <i class="wi wi-celsius"></i></h3>
+                            <h3> <ng-container *ngIf="f.weather"> {{f.weather.temperature}} </ng-container> <i class="wi wi-celsius"></i></h3>
                         </div>
                         <div class="col l6 s12 m12 center-align">
-                            <h3>38 <i class="wi wi-humidity"></i></h3>
+                            <h3> <ng-container *ngIf="f.weather"> {{f.weather.humidity}} </ng-container> <i class="wi wi-humidity"></i></h3>
                         </div>
                     </div>
                     <div class="row">
@@ -38,14 +38,14 @@
                     </div>
                     <div class="row center-align">
                         <p class="flow-text">
-                            Lat 18.20000
+                            Latitude {{f.latitude}}
                             <i class="material-icons">room</i>
-                            Long 20.29423
+                            {{f.longitude}} Longitude
                         </p>
                     </div>
                     <div class="row center-align">
                         <p class="flow-text">
-                            <i class="fa fa-leaf"></i> Carottes
+                            <i class="fa fa-leaf"></i> <ng-container *ngIf="f.culture"> {{ getCurrentCulture(f) }} </ng-container>
                         </p>
                     </div>
                 </div>

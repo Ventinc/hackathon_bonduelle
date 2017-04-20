@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$#" -ne 8 ]; then
-    echo "Usage: list.sh [base url] [field id] [parcel id] [humidity id] [value] [longitude] [latitude] [date]"
+    echo "Usage: list.sh [base url] [field id] [parcel id] [temperature id] [value] [longitude] [latitude] [date]"
     exit 1
 fi
 
