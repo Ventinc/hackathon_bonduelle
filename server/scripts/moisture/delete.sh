@@ -5,4 +5,4 @@ if [ "$#" -ne 4 ]; then
     exit 1
 fi
 
-curl -X DELETE $1/api/v1/field/$2/parcel/$3/humidity/$4.json
+curl -X DELETE $1/api/v1/field/$2/parcel/$3/moisture/$4.json
