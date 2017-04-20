@@ -1,3 +1,9 @@
-<h3>You are currently viewing the field {{field.name}} =)</h3>
-<div *ngIf="spot == undefined">No selected spot !</div>
-<div *ngIf="spot != undefined">You are currently viewing data for the spot n°{{spot.id}}</div>
+<div *ngIf="spot != undefined">
+    <div class="col l6 m12 s12" [ngClass]="{'hidden': !spot}">
+        <div class="card green lighten-1">
+            <div class="card-content white-text">
+                <span class="card-title">Parcelle {{spot.id}}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -29,7 +29,8 @@ export class MapComponent implements OnInit {
 
     @Input() private field: Field;
     @Input() private spots: Spot[];
-    @Output() spotSelect: EventEmitter<Spot> = new EventEmitter<Spot>();
+    @Output() public spotSelect: EventEmitter<Spot> = new EventEmitter<Spot>();
+    private spotSelected : boolean = false;
 
     constructor() {
     }
@@ -37,6 +38,7 @@ export class MapComponent implements OnInit {
     markerClick(mark: Spot)
     {
         console.log(mark);
+        this.spotSelected = true;
         this.spotSelect.emit(mark);
     }
 

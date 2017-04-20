@@ -1,31 +1,110 @@
-<div *ngIf="handler.showList">
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large brown darken-2" (click)="resetField()">
-            <i class="large material-icons">chevron_left</i>
-        </a>
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Forefields</a>
+        <ul id="nav-mobile" class="left" *ngIf="handler.showList">
+            <li><a href="#" (click)="resetField()"><i class="material-icons">chevron_left</i></a></li>
+        </ul>
     </div>
-    <div style="display: flex; flex-direction: row">
-        <div>
-            <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
-        </div>
-        <div>
-            <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
-        </div>
-    </div>
+</nav>
 
-</div>
-<div class="row" *ngIf="!handler.showList">
-    <div class="col s12 m6 l4" *ngFor="let f of fields; let i of index">
-        <div class="card green lighten-1">
-            <div class="card-content white-text">
-                <span class="card-title">
-                    <i class="material-icons">room</i>
-                    {{f.name}}
-                </span>
+<main>
+    <div *ngIf="handler.showList" class="row">
+        <div class="parallax-container">
+            <div class="parallax">
+                
             </div>
-            <div class="card-action green">
-                <a (click)="updateField(f.id)" href="#" class="brown-text">Examiner ce champ</a>
+        </div>
+        <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
+        <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
+    </div>
+    <div class="row" *ngIf="!handler.showList">
+        <div class="col s12 m6 l4" *ngFor="let f of fields">
+            <div class="card green lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">{{f.name}}</span>
+                    <div class="row">
+                        <div class="col l6 s12 m12 center-align">
+                            <h3>18 <i class="wi wi-celsius"></i></h3>
+                        </div>
+                        <div class="col l6 s12 m12 center-align">
+                            <h3>38 <i class="wi wi-humidity"></i></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="center-align">70 <i class="fa fa-percent"></i></p>
+                        <div class="progress brown lighten-4">
+                            <div class="determinate brown lighten-1" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <p class="flow-text">
+                            Lat 18.20000
+                            <i class="material-icons">room</i>
+                            Long 20.29423
+                        </p>
+                    </div>
+                    <div class="row center-align">
+                        <p class="flow-text">
+                            <i class="fa fa-leaf"></i> Carottes
+                        </p>
+                    </div>
+                </div>
+                <div class="card-action green">
+                    <a (click)="updateField(f.id)" href="#" class="brown-text">Examiner ce champ</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
+
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l4 s12">
+                <h5 class="white-text">Hackathon Bonduelle</h5>
+                <p class="grey-text text-lighten-4">En partenariat avec Thales, Bonduelle et Epitech</p>
+                <a href="https://github.com/ventinc/hackathon_bonduelle" class="grey-text text-lighten-3"><i class="devicon-github-plain"></i> Github du projet</a>
+            </div>
+            <div class="col l2 s12">
+                <h5 class="white-text">Client</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-angularjs-plain"></i> Angular 2</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-meteor-plain"></i> Meteor</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-typescript-plain"></i> TypeScript</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-sass-original"></i> Sass</a></li>
+                </ul>
+            </div>
+            <div class="col l2 s12">
+                <h5 class="white-text">Serveur</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-rails-plain-wordmark"></i> Ruby on Rails</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-docker-plain-wordmark"></i> Docker</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"> <i class="devicon-postgresql-plain-wordmark"></i> PostgreSql</a></li>
+                </ul>
+            </div>
+            <div class="col l2 s12">
+                <h5 class="white-text">Raspberry</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-python-plain-wordmark"></i> Python</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="devicon-cplusplus-plain"></i> C++</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://angular.io/"><i class="fa fa-terminal" aria-hidden="true"></i> Scripts BASH</a></li>
+                </ul>
+            </div>
+            <div class="col l2 s12">
+                <h5 class="white-text">Développeurs</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/ventinc">Vincent Dusautoir</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/Ruby-sh">Anas Buyumad</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/G0go">Gauthier Cler</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/eliastre100">Antoine Foret</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://github.com/ValMont13">Valentin Montagne</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Hackathon Bonduelle
+        </div>
+    </div>
+</footer>
