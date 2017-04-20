@@ -26,6 +26,13 @@ Rails.application.routes.draw do
       get         '/field/:field_id/crop/:id'       => 'crop#get'
       put         '/field/:field_id/crop/:id'       => 'crop#update'
       delete      '/field/:field_id/crop/:id'       => 'crop#delete'
+
+      get         '/field/:field_id/weathers'         => 'weather#index'
+      post        '/field/:field_id/weathers'         => 'weather#new'
+      get         '/field/:field_id/weathers/lastest' => 'weather#lastest'
+      get         '/field/:field_id/weather/:id'      => 'weather#get'
+      delete      '/field/:field_id/weather/:id'      => 'weather#delete'
+      get         '/actions/weather/gather'           => 'weather#create_all'
     end
   end
 end
