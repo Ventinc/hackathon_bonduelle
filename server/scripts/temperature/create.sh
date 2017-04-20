@@ -5,4 +5,4 @@ if [ "$#" -ne 7 ]; then
     exit 1
 fi
 
-curl -X POST --data "value=$4&longitude=$5&latitude=$6&date=$7" $1/api/v1/field/$2/parcel/$3/humidities.json
+curl -X POST --data "value=$4&longitude=$5&latitude=$6&date=$7" $1/api/v1/field/$2/parcel/$3/temperatures.json
