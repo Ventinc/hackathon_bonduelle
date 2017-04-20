@@ -3,20 +3,22 @@
  */
 import { Component } from '@angular/core';
 import template from './forefield.component.html';
-
-interface Field
-{
-    lng: number,
-    lat: number,
-    name: string,
-    id: number
-}
+import { HTTP } from 'meteor/http';
 
 interface Spot
 {
     lng: number,
     lat: number,
     id: number
+}
+
+interface Field
+{
+    id: number
+    lng: number,
+    lat: number,
+    name: string,
+    parcels: Spot[]
 }
 
 class Handler {
@@ -64,13 +66,23 @@ export class ForefieldComponent {
     private spots: Spot[] = [];
 
     constructor() {
-        this.fields.push(
-            {lng: 20, lat: 10, name: "Field0", id: 0},
-            {lng: 21, lat: 10, name: "Field1", id: 1},
-            {lng: 22, lat: 10, name: "Field2", id: 2},
-            {lng: 23, lat: 10, name: "Field3", id: 3},
-            {lng: 24, lat: 10, name: "Field4", id: 4}
-        )
+
+        try {
+            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/fields', {}, (error, result) => {
+                if (!error) {
+                    console.log("Result : " + JSON.stringify(result));
+                    this.fields = result.data;
+                    console.log("Fields : " + this.fields);
+                }
+                else {
+                    console.log("Error GET : " + error);
+                }
+            });
+            console.log("success API call, data : " + callResult);
+        } catch (e) {
+            // Got a network error, timeout, or HTTP error in the 400 or 500 range.
+            console.log("Fail api call : " + e);
+        }
     }
 
     updateField(id: number)
