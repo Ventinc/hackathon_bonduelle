@@ -5,12 +5,8 @@
         </a>
     </div>
     <div style="display: flex; flex-direction: row">
-        <div *ngIf="spots.length > 0">
-            <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
-        </div>
-        <div *ngIf="spots.length > 0">
-            <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
-        </div>
+        <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
+        <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
     </div>
 
 </div>
