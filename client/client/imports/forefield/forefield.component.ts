@@ -7,16 +7,18 @@ import { HTTP } from 'meteor/http';
 
 interface Spot
 {
-    lng: number,
-    lat: number,
     id: number
+    field_id: number
+    longitude: number,
+    latitude: number,
+    humidities: number[];
 }
 
 interface Field
 {
     id: number
-    lng: number,
-    lat: number,
+    longitude: number,
+    latitude: number,
     name: string,
     parcels: Spot[]
 }
@@ -96,19 +98,21 @@ export class ForefieldComponent {
         this.handler.setCurrentField(-1);
         this.handler.setCurrentSpot(-1);
         this.spots = [];
+        console.log("Spots after reset : " + JSON.stringify(this.spots));
     }
 
     getSpots(id: number)
     {
         // Use id of field to request list of spots in API
 
-        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + id);
+        console.log("Get request : http://127.0.0.1:8080/api/v1/field/" + id + "/parcels");
         try {
-            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + id, {}, (error, result) => {
+            const callResult = HTTP.call('GET', 'http://127.0.0.1:8080/api/v1/field/' + id + "/parcels", {}, (error, result) => {
                 if (!error) {
                     console.log("Result : " + JSON.stringify(result));
+                    this.spots = result.data;
+                    console.log("Spots Parent : " + JSON.stringify(this.spots));
                     //this.spots =result.data;
-                    console.log("Spots : " + result.data);
                 }
                 else {
                     console.log("Error GET : " + error);
@@ -119,20 +123,19 @@ export class ForefieldComponent {
             // Got a network error, timeout, or HTTP error in the 400 or 500 range.
             console.log("Fail api call : " + e);
         }
-        console.log("Getting spots for number number" + id);
-        this.spots.push(
-            {lat: 10, lng: 20, id: 0},
-            {lat: 10, lng: 20.002, id: 1},
-            {lat: 10, lng: 20.004, id: 2},
-            {lat: 10, lng: 20.006, id: 3},
-        );
-        console.log("Markers in parent : " + this.spots);
     }
 
     getSpotData(event)
     {
         console.log("=== Api Call for Spot eventHandler ===");
-        this.handler.setCurrentSpot(event.id);
+        console.log("Id of spot : " + event.id);
+        for (var i = 0 ; i < this.spots.length ; i++) {
+            if (this.spots[i].id == event.id) {
+                console.log("Found at index : " + i);
+                this.handler.setCurrentSpot(i);
+            }
+        }
+//        this.handler.setCurrentSpot(i);
         console.log("Should ask for Spot n°" + this.handler.getCurrentSpot() + " of field n°" + this.handler.getCurrentField())
     }
 

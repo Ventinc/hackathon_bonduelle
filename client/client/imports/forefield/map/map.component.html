@@ -1,8 +1,11 @@
 <div class="col s12 m12 l12">
     <div class="card green lighten-1" *ngIf="dataReady">
-        <sebm-google-map [latitude]="field.lat" [longitude]="field.lng" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
+        <div *ngFor="let s of spots" >
+            Spot : {{s.latitude}}, {{s.longitude}}
+        </div>
+        <sebm-google-map [latitude]="field.latitude" [longitude]="field.longitude" [mapTypeControl]=true [zoom]="16" [streetViewControl]=false>
             Loading...
-            <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.lat" [longitude]="s.lng" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
+            <sebm-google-map-marker *ngFor="let s of spots" [latitude]="s.latitude" [longitude]="s.longitude" [title]="toto" (markerClick)="markerClick(s)"></sebm-google-map-marker>
         </sebm-google-map>
         <div class="card-content white-text">
             <span class="card-title">Carte du champs</span>

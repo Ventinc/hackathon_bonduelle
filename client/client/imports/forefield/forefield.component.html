@@ -5,10 +5,10 @@
         </a>
     </div>
     <div style="display: flex; flex-direction: row">
-        <div>
+        <div *ngIf="spots.length > 0">
             <map [field]="fields[handler.getCurrentField()]" [spots]="spots" (spotSelect)="getSpotData($event)"></map>
         </div>
-        <div>
+        <div *ngIf="spots.length > 0">
             <data [field]="fields[handler.getCurrentField()]" [spot]="spots[handler.getCurrentSpot()]"></data>
         </div>
     </div>
