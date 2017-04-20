@@ -2,11 +2,11 @@ class ParcelController < ApplicationController
   before_action :validate_ids
 
   def index
-    render :json => Parcel.all, :methods => :humidities
+    render :json => Parcel.where(field_id: @field.id)
   end
 
   def get
-    render :json => Parcel.find(params[:id]), :methods => :humidities
+    render :json => Parcel.where(field_id: @field.id).find(params[:id])
   end
 
   def new
@@ -14,11 +14,11 @@ class ParcelController < ApplicationController
   end
 
   def update
-    render :json => Parcel.find(params[:id]).update(parcel_params)
+    render :json => Parcel.where(field_id: @field.id).find(params[:id]).update(parcel_params)
   end
 
   def delete
-    render :json => Parcel.find(params[:id]).destroy
+    render :json => Parcel.where(field_id: @field.id).find(params[:id]).destroy
   end
 
   private
