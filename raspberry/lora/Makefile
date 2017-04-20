@@ -1,10 +1,9 @@
 all:
-	gcc server.c -o server
-	gcc client.c -o client
+	gcc server/server.c -o server/server
+	gcc client/client.c -o client/client
 
 
 fclean:
-	rm -f server client
+	rm -f server/server client/client
 
-re:
-	fclean all
+re:	fclean all

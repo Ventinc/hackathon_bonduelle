@@ -159,7 +159,7 @@ if __name__ == "__main__":
                         longitude = g.decimal_degrees(safefloat(longitude))                        
                 if long_ew == "W":
                         longitude = -longitude
-                print("%f\t%f") % (lat,longitude)
+                print("%f:%f") % (lat,longitude)
                 s=str(t)+","+str(safefloat(lat)/100)+","+str(safefloat(longitude)/100)+"\n"	
 				
                 if enable_save_to_file:

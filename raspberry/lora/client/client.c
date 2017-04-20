@@ -11,7 +11,7 @@ int set_interface_attribs(int fd, int speed)
     struct termios tty;
 
     if (tcgetattr(fd, &tty) < 0) {
-        printf("Error from tcgetattr: %s\n", strerror(errno));
+      fprintf(stderr, "Error from tcgetattr: %s\n", strerror(errno));
         return -1;
     }
 
@@ -35,7 +35,7 @@ int set_interface_attribs(int fd, int speed)
     tty.c_cc[VTIME] = 1;
 
     if (tcsetattr(fd, TCSANOW, &tty) != 0) {
-        printf("Error from tcsetattr: %s\n", strerror(errno));
+      fprintf(stderr, "Error from tcsetattr: %s\n", strerror(errno));
         return -1;
     }
     return 0;
@@ -46,7 +46,7 @@ void set_mincount(int fd, int mcount)
     struct termios tty;
 
     if (tcgetattr(fd, &tty) < 0) {
-        printf("Error tcgetattr: %s\n", strerror(errno));
+      fprintf(stderr, "Error tcgetattr: %s\n", strerror(errno));
         return;
     }
 
@@ -54,20 +54,24 @@ void set_mincount(int fd, int mcount)
     tty.c_cc[VTIME] = 5;        /* half second timer */
 
     if (tcsetattr(fd, TCSANOW, &tty) < 0)
-        printf("Error tcsetattr: %s\n", strerror(errno));
+      fprintf(stderr, "Error tcsetattr: %s\n", strerror(errno));
 }
 
 
-int main()
+int main(int ac, char *av[])
 {
     char *portname = "/dev/ttyUSB0";
     int fd;
     int wlen;
 
+    if (ac != 2) {
+      fprintf(stderr, "Invalid number of arguments\n");
+      return EXIT_FAILURE;
+    }
     fd = open(portname, O_RDWR | O_NOCTTY | O_SYNC);
     if (fd < 0) {
-        printf("Error opening %s: %s\n", portname, strerror(errno));
-        return -1;
+      fprintf(stderr, "Error opening %s: %s\n", portname, strerror(errno));
+      return EXIT_FAILURE;
     }
     /*baudrate 115200, 8 bits, no parity, 1 stop bit */
     set_interface_attribs(fd, B19200);
@@ -75,27 +79,10 @@ int main()
 
     /* simple output */
 
-    do {
-      wlen = write(fd, "Hello!\n", 7);
-      if (wlen != 7) {
-        printf("Error from write: %d, %d\n", wlen, errno);
+      wlen = write(fd, strcat(av[1], "\n"), strlen(av[1]) + 1);
+      if (wlen != strlen(av[1]) + 1) {
+        fprintf(stderr, "Error from write: %d, %d\n", wlen, errno);
       }
       tcdrain(fd);    /* delay for output */
-      usleep(500000);
-    } while (1);
-
-    /* simple noncanonical input */
-    /*    do {
-        unsigned char buf[80];
-        int rdlen;
-
-        rdlen = read(fd, buf, sizeof(buf) - 1);
-        if (rdlen > 0) {
-            buf[rdlen] = 0;
-            printf("Read %d: \"%s\"\n", rdlen, buf);
-        } else if (rdlen < 0) {
-            printf("Error from read: %d: %s\n", rdlen, strerror(errno));
-        }
-        /* repeat read to get full message */
-    //} while (1);
+    return EXIT_SUCCESS;
 }
