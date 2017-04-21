@@ -96,8 +96,11 @@ int main()
       idx += 1;
       if (car == '\n' || car == '\0' || idx == 80) {
 	buf[idx] = '\0';
-	printf("%s", buf);
-	fflush(stdout);
+	//	printf("%s", buf);
+	//fflush(stdout);
+	
+	if (strlen(buf) > 0)
+	  system(strcat(strdup("bash api.sh "), buf)); 
 	idx = 0;
       }
     } else if (rdlen < 0) {
