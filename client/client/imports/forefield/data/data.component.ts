@@ -89,4 +89,10 @@ export class DataComponent implements OnInit {
     {
         this.tab = id;
     }
+
+    moisturePercentage(value : number)
+    {
+        let percentage = value / 700 * 100
+        return percentage.toFixed(1);
+    }
 }

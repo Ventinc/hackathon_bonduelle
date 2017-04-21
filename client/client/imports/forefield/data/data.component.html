@@ -8,34 +8,91 @@
                         <h5 class="center-align light">Informations</h5>
 
                         <ng-container *ngIf="spot.datas">
-                            (Should be displayed as vertical columns)
-                            <div *ngFor="let data of spot.datas">
+                            <div  *ngFor="let data of spot.datas">
 
-                                <ng-container *ngIf="data.humidities">
-                                    <div *ngFor="let h of data.humidities">
-                                        H: V => {{h.value}} @ {{h.date}}
-                                    </div>
-                                </ng-container>
+                                <div class="row">
+                                    <div class="col l6 m6 s12" *ngIf="data.humidities">
+                                        <h3 class="center-align"><i class="wi wi-humidity"></i></h3>
+                                        <h4 class="center-align light">Humidité de l'air</h4>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>Valeur</th>
+                                                <th>Date</th>
+                                            </tr>
+                                            </thead>
 
-                                --------------------------
-                                <ng-container *ngIf="data.temperatures">
-                                    <div *ngFor="let t of data.temperatures">
-                                        T: V => {{t.value}} @ {{t.date}}
+                                            <tbody>
+                                            <tr *ngFor="let h of data.humidities">
+                                                <td>{{ h.value }} %</td>
+                                                <td>{{ h.date }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </ng-container>
-                                ------------------------------
-                                <ng-container *ngIf="data.luminosity">
-                                    <div *ngFor="let l of data.luminosity">
-                                        L: V => {{l.value}} @ {{l.date}}
-                                    </div>
-                                </ng-container>
-                                --------------------------------
-                                <ng-container *ngIf="data.moistures">
-                                    <div *ngFor="let m of data.moistures">
-                                        M: V => {{m.value}} @ {{m.date}}
-                                    </div>
-                                </ng-container>
 
+                                    <div class="col l6 m6 s12" *ngIf="data.temperatures">
+                                        <h3 class="center-align"><i class="wi wi-thermometer"></i></h3>
+                                        <h4 class="center-align light">Température</h4>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>Valeur</th>
+                                                <th>Date</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr *ngFor="let t of data.temperatures">
+                                                <td>{{ t.value }} °C</td>
+                                                <td>{{ t.date }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col l6 m6 s12" *ngIf="data.luminosity">
+                                        <h3 class="center-align"><i class="wi wi-horizon-alt"></i></h3>
+                                        <h4 class="center-align light">Luminosité</h4>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>Valeur</th>
+                                                <th>Date</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr *ngFor="let l of data.luminosity">
+                                                <td>{{ l.value }} lx</td>
+                                                <td>{{ l.date }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col l6 m6 s12" *ngIf="data.moistures">
+                                        <h3 class="center-align"><i class="wi wi-raindrop"></i></h3>
+                                        <h4 class="center-align light">Humidité du sol</h4>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>Valeur</th>
+                                                <th>Date</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr *ngFor="let m of data.moistures">
+                                                <td>{{ moisturePercentage(m.value) }} %</td>
+                                                <td>{{ m.date }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </ng-container>
 
