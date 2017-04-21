@@ -5,13 +5,53 @@
 import { Component, Input, OnInit } from '@angular/core';
 import template from './data.component.html';
 
+interface Humidity
+{
+    id: number,
+    value: number,
+    longitude: number,
+    latitude: number,
+    date: string,
+    parcel_id: number
+}
+
+interface Temperature
+{
+    id: number,
+    value: number,
+    longitude: number,
+    latitude: number,
+    date: string,
+    parcel_id: number
+}
+
+interface Luminosity
+{
+    id: number,
+    value: number,
+    longitude: number,
+    latitude: number,
+    date: string,
+    parcel_id: number
+}
+
+interface Moisture
+{
+    id: number,
+    value: number,
+    longitude: number,
+    latitude: number,
+    date: string,
+    parcel_id: number
+}
+
 interface Spot
 {
     id: number
     field_id: number
     longitude: number,
     latitude: number,
-    humidities: number[];
+    datas: [{moistures: Moisture, luminosity: Luminosity, temperatures: Temperature, humidities: Humidity}],
 }
 
 interface Field

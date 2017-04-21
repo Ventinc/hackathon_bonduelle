@@ -10,10 +10,10 @@
             <span class="card-title">Carte du champs</span>
             <div class="row">
                 <div class="col l6 s12 m12 center-align">
-                    <h3>{{field.weather.temperature}} <i class="wi wi-celsius"></i></h3>
+                    <h3><ng-container *ngIf="field.weather">{{field.weather.temperature}} </ng-container><i class="wi wi-celsius"></i></h3>
                 </div>
                 <div class="col l6 s12 m12 center-align">
-                    <h3>{{field.weather.humidity}} <i class="wi wi-humidity"></i></h3>
+                    <h3><ng-container *ngIf="field.weather">{{field.weather.humidity}} </ng-container><i class="wi wi-humidity"></i></h3>
                 </div>
             </div>
             <div class="row">
