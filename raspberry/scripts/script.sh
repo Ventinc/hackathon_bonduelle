@@ -37,8 +37,8 @@ function getTimestamp() {
 }
 
 function __start() {
-    touch cacheFile
-    touch tmpFile
+    touch $cacheFile
+    touch $tmpFile
     copyCache
     processCache
     copyCache
