@@ -7,6 +7,39 @@
                     <div *ngIf="tab == 1" class="col s12">
                         <h5 class="center-align light">Informations</h5>
 
+                        <ng-container *ngIf="spot.datas">
+                            (Should be displayed as vertical columns)
+                            <div *ngFor="let data of spot.datas">
+
+                                <ng-container *ngIf="data.humidities">
+                                    <div *ngFor="let h of data.humidities">
+                                        H: V => {{h.value}} @ {{h.date}}
+                                    </div>
+                                </ng-container>
+
+                                --------------------------
+                                <ng-container *ngIf="data.temperatures">
+                                    <div *ngFor="let t of data.temperatures">
+                                        T: V => {{t.value}} @ {{t.date}}
+                                    </div>
+                                </ng-container>
+                                ------------------------------
+                                <ng-container *ngIf="data.luminosity">
+                                    <div *ngFor="let l of data.luminosity">
+                                        L: V => {{l.value}} @ {{l.date}}
+                                    </div>
+                                </ng-container>
+                                --------------------------------
+                                <ng-container *ngIf="data.moistures">
+                                    <div *ngFor="let m of data.moistures">
+                                        M: V => {{m.value}} @ {{m.date}}
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </ng-container>
+
+
                     </div>
                     <div *ngIf="tab == 2" id="interventions" class="col s12">
                         <h5 class="center-align light">Interventions</h5>
