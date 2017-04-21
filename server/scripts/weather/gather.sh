@@ -5,4 +5,4 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-curl -X POST $1/api/v1/actions/weather/gather
+curl  $1/api/v1/actions/weather/gather
