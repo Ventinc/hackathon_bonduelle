@@ -34,10 +34,11 @@ function rand() {
 
 
 function main() {
-    ./client "$(getMeasurement) TEMPERATURE $(getTemperature) $(getGPSCoords)"
-    ./client "$(getMeasurement) HUMIDITY $(getHumidity) $(getGPSCoords)"
-    ./client "$(getMeasurement) LUMINOSITY $(getLuminosity) $(getGPSCoords)"
-    ./client "$(getMeasurement) MOISTURE $(getMoisture) $(getGPSCoords)"
+    gps=$(getGPSCoords)
+    ./client "$(getMeasurement) TEMPERATURE $(getTemperature) $gps"
+    ./client "$(getMeasurement) HUMIDITY $(getHumidity) $gps"
+    ./client "$(getMeasurement) LUMINOSITY $(getLuminosity) $gps"
+    ./client "$(getMeasurement) MOISTURE $(getMoisture) $gps"
 }
 
 main
