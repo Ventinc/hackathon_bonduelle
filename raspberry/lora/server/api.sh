@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-url="127.0.0.1"
+url="https://eliatre100.fr"
 fieldId=1
 parcelId=1
 
