@@ -3,9 +3,6 @@
 cacheFile="cache"
 tmpFile="tmp"
 
-touch cacheFile
-touch tmpFile
-
 function cleanTmpFile() {
     echo -n "" > $tmpFile
 }
@@ -40,6 +37,8 @@ function getTimestamp() {
 }
 
 function __start() {
+    touch cacheFile
+    touch tmpFile
     copyCache
     processCache
     copyCache
